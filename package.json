@@ -4,5 +4,8 @@
   "scripts": {
     "seed": "node ./seed"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "faker": "^5.5.3"
+  }
 }
