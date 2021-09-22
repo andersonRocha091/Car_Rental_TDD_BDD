@@ -4,8 +4,8 @@ class CarService {
     this.carRepository = new BaseRepository({ file: cars });
   }
 
-  test() {
-    return this.carRepository.find();
+  getAvailableCar(carCategory) {
+    return null;
   }
 }
 

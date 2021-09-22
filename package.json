@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "seed": "node ./seed",
-    "test:final": "npx mocha -w --parallel test/*test.js",
-    "test:cov": "npx nyc npx mocha --parallel test/*test.js"
+    "test": "npx mocha -w --parallel **/**/*.test.js",
+    "test:cov": "npx nyc npx mocha --parallel **/**/*.test.js"
   },
   "license": "MIT",
   "devDependencies": {
