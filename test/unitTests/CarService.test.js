@@ -6,6 +6,11 @@ const { join } = require("path");
 const CarService = require('../../src/service/CarService');
 // it normalizes the file path
 const carDatabase = join(__dirname,'./../../database', 'cars.json');
+const mocks = {
+  validCar: require('../mocks/valid-car.json'),
+  validCarCategory: require('../mocks/valid-carCategory.json'),
+  validCustomer: require('../mocks/valid-costumer.json'),
+}
 describe('CarService Suite Tests', () => {
   let carService = {};
   before(() => {
