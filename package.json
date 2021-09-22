@@ -2,10 +2,15 @@
   "name": "final_project",
   "version": "1.0.0",
   "scripts": {
-    "seed": "node ./seed"
+    "seed": "node ./seed",
+    "test:final": "npx mocha -w --parallel test/*test.js",
+    "test:cov": "npx nyc npx mocha --parallel test/*test.js"
   },
   "license": "MIT",
   "devDependencies": {
-    "faker": "^5.5.3"
+    "faker": "^5.5.3",
+    "mocha": "8",
+    "nyc": "15",
+    "sinon": "9"
   }
 }
