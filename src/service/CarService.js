@@ -7,6 +7,17 @@ class CarService {
   getAvailableCar(carCategory) {
     return null;
   }
+  getRandonPositionFromArray(list){
+    const listLength = list.length;
+    return Math.floor(
+      Math.random() * (listLength)
+    )
+  }
+  choseRandomCar(carCategory){
+      const randomCarIndex = this.getRandonPositionFromArray(carCategory.carIds);
+      const carId = carCategory.carIds[randomCarIndex];
+      return carId
+  }
 }
 
 module.exports = CarService;
