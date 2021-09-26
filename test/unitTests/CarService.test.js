@@ -72,7 +72,7 @@ describe('CarService Suite Tests', () => {
     expect(carService.carRepository.find.calledWithExactly(car.id)).to.be.ok;
     expect(result).to.be.deep.equal(expected);
   });
-  it('given a carCategory, customer, and numberOfDays', async () => {
+  it('given a carCategory, customer, and numberOfDays', () => {
     const customer = Object.create(mocks.validCustomer);
     customer.age = 50;
 
@@ -82,8 +82,13 @@ describe('CarService Suite Tests', () => {
     const numberOfDays = 5;
     // Age 50 - 1.3 tax - category price 37.6
     // 37.6 *1.3  = 48.8 * 5 days = 244.40
+
+    // Avoiding changes on Tax class breaking the whole test
+    sandBox.stub(carService, 'taxesBasedOnAge')
+    .get(() => [{from: 40, to: 50, then: 1.3}]);
+
     const expected = carService.currencyFormat.format(244.40);
-    const result = await carService.calculateFinalPrice(
+    const result = carService.calculateFinalPrice(
       customer,
       carCategory,
       numberOfDays

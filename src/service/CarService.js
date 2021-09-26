@@ -25,7 +25,7 @@ class CarService {
     return carId;
   }
 
-  async calculateFinalPrice(customer, carCategory, numberOfDays) {
+  calculateFinalPrice(customer, carCategory, numberOfDays) {
     const { age } = customer;
     const { price } = carCategory;
     const { then: tax } = this.taxesBasedOnAge.find(
