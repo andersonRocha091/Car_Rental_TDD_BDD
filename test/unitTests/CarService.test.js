@@ -6,6 +6,7 @@ const { join } = require("path");
 
 
 const CarService = require('../../src/service/CarService');
+const { mock } = require("sinon");
 // it normalizes the file path
 const carDatabase = join(__dirname,'./../../database', 'cars.json');
 const mocks = {
@@ -69,6 +70,24 @@ describe('CarService Suite Tests', () => {
     
     expect(carService.choseRandomCar.calledOnce).to.be.ok;
     expect(carService.carRepository.find.calledWithExactly(car.id)).to.be.ok;
+    expect(result).to.be.deep.equal(expected);
+  });
+  it('given a carCategory, customer, and numberOfDays', async () => {
+    const customer = Object.create(mocks.validCustomer);
+    customer.age = 50;
+
+    const carCategory = Object.create(mocks.validCustomer);
+    carCategory.price = 37.6;
+
+    const numberOfDays = 5;
+    // Age 50 - 1.3 tax - category price 37.6
+    // 37.6 *1.3  = 48.8 * 5 days = 244.40
+    const expected = carService.currencyFormat.format(244.40);
+    const result = await carService.calculateFinalPrice(
+      customer,
+      carCategory,
+      numberOfDays
+    );
     expect(result).to.be.deep.equal(expected);
   });
 });
