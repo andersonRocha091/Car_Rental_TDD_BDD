@@ -5,7 +5,9 @@ class CarService {
   }
 
   getAvailableCar(carCategory) {
-    return null;
+    const carId = this.choseRandomCar(carCategory);
+    const car = this.carRepository.find(carId);
+    return car;
   }
   getRandonPositionFromArray(list){
     const listLength = list.length;
