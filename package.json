@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "seed": "node ./seed",
+    "start": "node ./src/App.js",
     "test": "npx mocha -w --parallel **/**/*.test.js",
     "test:cov": "npx nyc npx mocha --parallel **/**/*.test.js"
   },
