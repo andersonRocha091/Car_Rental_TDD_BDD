@@ -1,5 +1,5 @@
 const { describe, it, before, beforeEach, afterEach } = require("mocha");
-const { expect } = require("chai");
+const { expect, assert } = require("chai");
 const sinon = require("sinon");
 const { join } = require("path");
 const request = require("supertest");
@@ -36,6 +36,8 @@ describe("Suite tests of presentation layer api", () => {
         customerId: mocks.validCustomer.id,
         numberOfDays: 5,
       });
+    const finalPrice = body.result.replace(/\D/g, "");
+    expect(finalPrice).to.be.equals('26806');
     expect(status).to.be.equals(200);
   });
 });

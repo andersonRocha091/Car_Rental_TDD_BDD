@@ -3,8 +3,10 @@ const { join } = require('path')
 
 const CarService = require('./service/CarService');
 const CustomerService = require('./service/CustomerService');
+const CarCategoryService = require('./service/CarCategoryService');
 const carDatabase = join(__dirname, "./../database", "cars.json");
 const customersDatabase = join(__dirname, "./../database", "customers.json");
+const carCategoryDatabase = join(__dirname, "./../database", "carCategory.json");
 
 const bodyParser = (request) => {
   return new Promise((resolve) => {
@@ -37,8 +39,17 @@ const routes = {
     const body = await bodyParser(request);
     const carService = new CarService({cars: carDatabase});
     const customerService = new CustomerService({customers: customersDatabase})
-    const customer = customerService.findCustomer(body.customerId);
-    // carService.rent(customer,)
+    const carCategoryService = new CarCategoryService({carCategories: carCategoryDatabase});
+    try {
+      const customer = await customerService.findCustomer(body.customerId);
+      const carCategory = await carCategoryService.findCarCategory(body.carCategoryId);
+      const result = carService.calculateFinalPrice(customer, carCategory, body.numberOfDays);
+      response.writeHead(200, { "Content-Type": "application/json" });
+      response.write(JSON.stringify({result: result}));
+    } catch (error) {
+      response.writeHead(501);
+      response.write("ERROR: ", error.message);
+    }
     return response.end();
   },
   default: (request, response) => {

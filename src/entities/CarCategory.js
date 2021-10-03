@@ -3,7 +3,7 @@ class CarCategory extends Base {
   constructor({ id, name, carIds, price}) {
     super({ id, name });
     this.carIds = carIds;
-    this.prince = price;
+    this.price = price;
   }
 }
 module.exports = CarCategory;

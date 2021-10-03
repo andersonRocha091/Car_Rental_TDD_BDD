@@ -26,7 +26,6 @@ describe('CarCategoryService tests suite', () => {
   });
   it('Should get a carCategory by id', async () => {
     const carCategory = mocks.validCarCategory;
-    console.log('carCategoryService.carCategoryRepository: ', carCategoryService.carCategoryRepository.find);
     sandBox.stub(carCategoryService.carCategoryRepository, carCategoryService.carCategoryRepository.find.name)
     .resolves(carCategory);
     sandBox.spy(carCategoryService, carCategoryService.findCarCategory.name);
