@@ -2,7 +2,9 @@ const http = require('http');
 const { join } = require('path')
 
 const CarService = require('./service/CarService');
+const CustomerService = require('./service/CustomerService');
 const carDatabase = join(__dirname, "./../database", "cars.json");
+const customersDatabase = join(__dirname, "./../database", "customers.json");
 
 const bodyParser = (request) => {
   return new Promise((resolve) => {
@@ -29,6 +31,14 @@ const routes = {
       response.writeHead(501);
       response.write("ERROR: ", error.message);
     }
+    return response.end();
+  },
+  "/rent:get": async (request, response) => {
+    const body = await bodyParser(request);
+    const carService = new CarService({cars: carDatabase});
+    const customerService = new CustomerService({customers: customersDatabase})
+    const customer = customerService.findCustomer(body.customerId);
+    // carService.rent(customer,)
     return response.end();
   },
   default: (request, response) => {
