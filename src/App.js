@@ -38,7 +38,7 @@ const routes = {
   "/rent:get": async (request, response) => {
     const body = await bodyParser(request);
     const carService = new CarService({cars: carDatabase});
-    const customerService = new CustomerService({customers: customersDatabase})
+    const customerService = new CustomerService({customers: customersDatabase});
     const carCategoryService = new CarCategoryService({carCategories: carCategoryDatabase});
     try {
       const customer = await customerService.findCustomer(body.customerId);
@@ -46,6 +46,33 @@ const routes = {
       const result = carService.calculateFinalPrice(customer, carCategory, body.numberOfDays);
       response.writeHead(200, { "Content-Type": "application/json" });
       response.write(JSON.stringify({result: result}));
+    } catch (error) {
+      response.writeHead(501);
+      response.write("ERROR: ", error.message);
+    }
+    return response.end();
+  },
+  '/rent:post': async (request, response) => {
+    const body = await bodyParser(request);
+    const carService = new CarService({cars: carDatabase});
+    const carCategoryService = new CarCategoryService({carCategories: carCategoryDatabase});
+    const customerService = new CustomerService({customers: customersDatabase});
+    try {
+      const customer = await customerService.findCustomer(body.customerId);
+      const carCategory = await carCategoryService.findCarCategory(body.carCategoryId);
+      const result = await carService.rent(customer, carCategory, body.numberOfDays);
+      console.log('result: ', result);
+      response.writeHead(200, { "Content-Type": "application/json" });
+      response.write(
+        JSON.stringify({
+          result: {
+            customer: result.customer,
+            car: result.car,
+            ammount: result.ammount,
+            dueDate: result.dueDate,
+          },
+        })
+      );
     } catch (error) {
       response.writeHead(501);
       response.write("ERROR: ", error.message);

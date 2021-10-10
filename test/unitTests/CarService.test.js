@@ -69,7 +69,7 @@ describe("CarService Suite Tests", () => {
     const customer = Object.create(mocks.validCustomer);
     customer.age = 50;
 
-    const carCategory = Object.create(mocks.validCustomer);
+    const carCategory = Object.create(mocks.validCarCategory);
     carCategory.price = 37.6;
 
     const numberOfDays = 5;
